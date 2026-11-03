@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="am">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trade Insight Welcome</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;800&family=Sora:wght@600;800&display=swap">
+<style>
+/* Layout: one full-height card per step, big Next button pinned at the bottom, progress bar on top */
+:root{
+  --bg:#f5f6fa; --card:#ffffff; --fg:#1b1f33; --muted:#5a6078; --line:#dfe2ee;
+  --navy:#000080; --accent:#e65f00; --accent-fg:#ffffff; --soft:#eceefb; --ok:#127a46;
+  --amh:'Noto Sans Ethiopic','Abyssinica SIL',system-ui,sans-serif; --lat:'Sora',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b0d1f; --card:#14172e; --fg:#eef0fb; --muted:#a3a9c6; --line:#2a2e4d;
+  --navy:#9aa4ff; --accent:#ff8a2b; --accent-fg:#1a0d00; --soft:#1d2142; --ok:#4cc58a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0d1f; --card:#14172e; --fg:#eef0fb; --muted:#a3a9c6; --line:#2a2e4d;
+  --navy:#9aa4ff; --accent:#ff8a2b; --accent-fg:#1a0d00; --soft:#1d2142; --ok:#4cc58a; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--amh);font-size:17px;line-height:1.6;
+  padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));
+  padding-block:12px}
+.app{max-width:560px;margin:0 auto;height:100%;display:flex;flex-direction:column;gap:12px}
+.top{display:flex;align-items:center;gap:12px}
+.brand{font-family:var(--lat);font-weight:800;color:var(--navy);font-size:15px;white-space:nowrap}
+.brand b{color:var(--accent)}
+.bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.count{font-family:var(--lat);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stage{flex:1;min-height:0;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px}
+.slide{display:none}
+.slide.on{display:block;animation:in .25s ease}
+@keyframes in{from{opacity:.4;transform:translateX(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.bar i{transition:none}}
+.ico{font-size:40px;line-height:1;margin-bottom:10px}
+h1,h2{font-weight:800;line-height:1.3;margin:0 0 12px;text-wrap:balance;color:var(--navy)}
+h1{font-size:28px}h2{font-size:23px}
+p{margin:0 0 12px}
+ul{margin:0 0 12px;padding-left:20px}li{margin-bottom:8px}
+.muted{color:var(--muted);font-size:15px}
+.box{background:var(--soft);border-radius:12px;padding:14px 16px;margin:0 0 12px}
+.box h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
+.box p{margin:0}
+.tag{display:inline-block;font-family:var(--lat);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.offer{border:2px solid var(--accent);border-radius:12px;padding:16px;margin:0 0 12px}
+.offer strong{font-size:24px;color:var(--accent);display:block;line-height:1.3}
+a{color:var(--navy);font-weight:600;overflow-wrap:anywhere}
+.nav{display:flex;gap:10px;padding-bottom:4px}
+button{font:inherit;font-weight:800;border-radius:12px;border:0;padding:15px 18px;cursor:pointer;min-height:52px}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#next{flex:1;background:var(--accent);color:var(--accent-fg);font-size:18px}
+#back{background:var(--soft);color:var(--navy);min-width:84px}
+#back[disabled]{opacity:.35;cursor:default}
+.dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--accent)}
+.txt{white-space:pre-wrap;overflow-wrap:anywhere;font-size:18px;line-height:1.7}
+.btn{display:block;margin-top:16px;text-align:center;background:var(--navy);color:var(--card);padding:14px 16px;border-radius:12px;text-decoration:none;font-weight:800;overflow-wrap:anywhere}
+</style>
+
+<div class="app">
+  <div class="top">
+    <div class="brand">Trade <b>Insight</b></div>
+    <div class="bar"><i id="fill"></i></div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="stage" id="stage">
+<section class="slide">
+      <div class="ico">🙏</div>
+      <h1>እንኳን ደህና መጣህ</h1>
+      <p>ለመጀመር ከታች <b>"ጀምር"</b> የሚለውን ተጫን። ከዚያ <b>"ቀጣይ"</b> እየተጫንክ አንድ በአንድ ተመልከት። ሲጨርስ ጥያቄ ካለህ እዚሁ ጻፍልኝ።</p>
+      <div class="box"><p class="muted">5 ደቂቃ ብቻ ይወስዳል።</p></div>
+    </section>
+    <section class="slide">
+      <span class="tag">ልዩ እድል ለዲያስፖራ</span>
+      <div class="ico">🌍</div>
+      <h2>ለሁሉም ዲያስፖራ ወገኖች</h2>
+      <div class="offer"><strong>1 ወር ነፃ Mentorship</strong><span class="muted">ከሀገር ውጭ ለምትኖሩ ለሁሉም ኢትዮጵያውያን</span></div>
+      <p>ከሀገር ውጭ ለምትኖሩ ኢትዮጵያውያን በሙሉ የ1 ወር ነፃ Mentorship ልዩ እድል አዘጋጅተናል።</p>
+      <div class="box"><h3>እንዴት መሳተፍ ይቻላል?</h3>
+        <p>እዚሁ <b>"እፈልጋለሁ"</b> ብለህ ጻፍልኝ። እንዴት እንደምትጀምር ደረጃ በደረጃ እነግርሃለሁ።</p></div>
+    </section>
+<section class="slide"><span class="tag">Welcome</span><div class="txt">ሰላም! 🙏
+
+አሁን ላይ Trade Insight የሚሰጠው አጠቃላይ ሰርቪስ በትንሹ ለማሳወቅ ያህል እና የምታገኛቸው ጠቃሚ ነገሮች እነዚህ ናቸው፦</div></section>
+<section class="slide"><span class="tag">1 · Academy</span><div class="txt">1. 🌐 የትምህርት ኢንፍራስትራክቸር እና አፕ (LMS App):
+
+ወደ <a href="https://tradeinsightnlm.com" target="_blank" rel="noopener">Trade Insight Official Website</a> ስትገባ፣ ከባዶ ጀማሪ እስከ አድቫንስድ ደረጃ የሚያደርሱ 13 የኮርስ ሞጁሎችን መዋቅር፣ አጠቃላይ የትምህርት ኢንፍራስትራክቸሩን እና የተማሪዎችን አስተያየት በግልጽ ማየት ትችላለህ።
+
+- አፑ ውስጥ ስትገባ እያንዳንዱ ሞጁል የቪዲዮ ትምህርት፣ ፕሬዘንቴሽን (PPT)፣ የጽሁፍና የምስል ማብራሪያ (Reading Material)፣ እና ፈተና (Quiz) አለው።
+- ሞጁል 1ን በስርዓት ተምረህ ሳትጨርስ እና ከ75% በላይ በፈተና አምጥተህ ሳታረጋግጥ ቀጣዩ ሞጁል አይከፈትም! በቃ በስርዓት ተምረህ እና አውቀህ እንጂ በግምት ማለፍ አይቻልም።</div></section>
+<section class="slide"><span class="tag">2 · Registration</span><div class="txt">🎁 2. የምዝገባ ሁኔታ እና ነፃ አገልግሎት (Zero Cost):
+አካዳሚውም ሆነ የምናቀርባቸው ነገሮች ሁሉ ሙሉ በሙሉ የኛ Partner በሚሰራባቸው አገሮች ነፃ ናቸው። ትምህርቱን ጀምረህ ስትማርም ሆነ ከዚያ በኋላ ምንም አይነት ክፍያ ፈጽሞ አይጠየቅም!
+
+* የምዝገባ ሁኔታ በግልጽ ለማስቀመጥ ያህል
+1. በኛ Partner/Affiliate Link መመዝገብ በሚቻልባቸው ሀገራት፡ በኛ ሊንክ አዲስ አካውንት ከፍተህ ስትመዘገብ ትምህርቱም ሆነ አገልግሎቱ 100% ነፃ ይሆንልሃል።
+
+2. በኛ Partner Link መመዝገብ የማይቻልባቸው ሀገራት ከሆነ፡ የፕላትፎርሙን፣ የአፑን እና የላይቭ ሴሽኖቹን አክሰስ ለማግኘት የሰርቪስ ክፍያ (Service Charge) ይኖረዋል። በተጨማሪም የTrade Insight ማንኛውም Service Lifetime Access እና ከእኔ ጋር በሳምንት 2 ጊዜ በቀጥታ እየተገናኘን ልዩ ክትትል የማግኘት እድል ታገኛለህ!</div></section>
+<section class="slide"><span class="tag">3 · Telegram</span><div class="txt">👥 3. የቴሌግራም ኮሚኒቲ (Telegram Channel &amp; VIP):
+- General Channel: ለሁሉም ክፍት የሆነ እና አጠቃላይ መረጃዎች የሚለቀቁበት ነፃ የቴሌግራም ኮሚኒቲ ነው።
+- Free VIP: የተለያዩ ጠቃሚ ትሬዲንግ ላይ ለውጥ የሚያመጡ Analysis እና ሲግናል የሚመስሉ ነገሮች የሚለቀቁት በFree VIP ቴሌግራም ግሩፕ ብቻ ነው።</div><a class="btn" href="https://t.me/tradeinsights1" target="_blank" rel="noopener">✈️ Telegram Channel · t.me/tradeinsights1</a></section>
+<section class="slide"><span class="tag">4 · Live sessions</span><div class="txt">👨‍💻 4. የኔ ቀጥተኛ ድጋፍ እና የሴሽን ፕሮግራሞች:
+ከትምህርቶቹ በተጨማሪ በሳምንት ውስጥ ከእኔ ጋር በቀጥታ የምትገናኝባቸው ላይቭ ሴሽኖች አሉ፦
+- Morning Session
+- New York Session
+- Backtest Session
+- Saturday Class: ተማሪዎች በሳምንቱ ያልገቧቸውን ነገሮች የሚጠይቁበት እና የማብራሪያ ትምህርት የሚሰጥበት የጋራ ክላስ ነው።</div></section>
+<section class="slide"><span class="tag">5 · Mentorship</span><div class="txt">⚠️ 5. ስለ Mentorship:
+አሁን ላይ Mentorship በአዲስ መልክ በጊዜያዊነት 🛑 አንቀበልም፤ ምክንያቱም ከላይ የጠቀስኩልህ የአካዳሚው ነፃ ትምህርት እና የጋራ ላይቭ ሴሽኖች ለአንድ ተማሪ ውጤታማ ለመሆን ከበቂ በላይ ስለሆኑ፣ በዚሁ በተዋቀረ መንገድ በደንብ መማር ትችላለህ።</div></section>
+<section class="slide"><span class="tag">6 · How to start</span><div class="txt">🚀 እንዴት መጀመር ይቻላል?
+መመዝገብ የምትፈልግ ከሆነ በቦቱ በኩል ገብተህ step by step guide ያደርጋሃል፤ በዛ ላይ መመዝገብ ትችላለህ። እንዲሁም የቦቱ አጠቃቀም የሰራነውን የባለፈው ቪዲዮ ማየት ትችላለህ 👉<a href="https://www.tiktok.com/@tradeinsight12/video/7696567385196645653" target="_blank" rel="noopener">▶ TikTok ቪዲዮ</a>
+
+❓ ማንኛውም ጥያቄ ካለህ በቀጥታ እዚህ ጋ መጠየቅ ትችላለህ!
+
+👉 ኦፊሴላዊ ዌብሳይታችን፡ <a href="https://tradeinsightnlm.com/login" target="_blank" rel="noopener">Trade Insight Official Website</a> ነው</div></section>
+<section class="slide">
+      <div class="ico">❓</div>
+      <h2>ጥያቄ አለህ?</h2>
+      <p>ማንኛውም ጥያቄ ካለህ እዚሁ በቀጥታ ጻፍልኝ።</p>
+      <p>መመዝገብ ከፈለግህ <b>"እፈልጋለሁ"</b> ብለህ እዚሁ ጻፍልኝ።</p>
+      <div class="box"><p>ይህን ገጽ ስለተመለከትክ እናመሰግናለን። 🙏<br><b>Trade Insight</b> · Execute the Plan. Not the Emotion.</p></div>
+    </section>
+
+  </div>
+
+  <div class="dots" id="dots" aria-hidden="true"></div>
+  <div class="nav">
+    <button id="back" type="button">← ተመለስ</button>
+    <button id="next" type="button">ቀጣይ →</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var s=[].slice.call(document.querySelectorAll('.slide')),i=0,n=s.length;
+  var dots=document.getElementById('dots'),next=document.getElementById('next'),back=document.getElementById('back');
+  s.forEach(function(){dots.appendChild(document.createElement('i'))});
+  function show(k){
+    i=Math.max(0,Math.min(n-1,k));
+    s.forEach(function(e,j){e.classList.toggle('on',j===i)});
+    [].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i)});
+    document.getElementById('fill').style.width=((i+1)/n*100)+'%';
+    document.getElementById('count').textContent=(i+1)+' / '+n;
+    back.disabled=i===0;
+    next.textContent=i===n-1?'ከመጀመሪያው ↺':(i===0?'ጀምር →':'ቀጣይ →');
+    document.getElementById('stage').scrollTop=0;
+    try{history.replaceState(null,'','#s'+(i+1))}catch(e){}
+  }
+  next.onclick=function(){show(i===n-1?0:i+1)};
+  back.onclick=function(){show(i-1)};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight')show(i+1);else if(e.key==='ArrowLeft')show(i-1)});
+  var x0=null,st=document.getElementById('stage');
+  st.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  st.addEventListener('touchend',function(e){
+    if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;
+    if(Math.abs(dx)>70)show(i+(dx<0?1:-1))},{passive:true});
+  show(0);
+})();
+</script>
+
+</body>
+</html>
